@@ -12,11 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-cc_binary {
-    name: "vendor.lineage.livedisplay@2.0-service-mediatek",
-    init_rc: ["vendor.lineage.livedisplay@2.0-service-mediatek.rc"],
+cc_defaults {
+    name: "livedisplay_mediatek_defaults",
+    defaults: ["hidl_defaults"],
     relative_install_path: "hw",
-    proprietary: true,
     shared_libs: [
         "libbase",
         "libbinder",
@@ -32,4 +31,18 @@ cc_binary {
         "service.cpp",
     ],
 
+}
+
+cc_binary {
+    name: "lineage.livedisplay@2.0-service-mediatek",
+    init_rc: ["lineage.livedisplay@2.0-service-mediatek.rc"],
+    defaults: ["livedisplay_mediatek_defaults"],
+    cflags: ["-DLIVES_IN_SYSTEM"],
+}
+
+cc_binary {
+    name: "vendor.lineage.livedisplay@2.0-service-mediatek",
+    init_rc: ["vendor.lineage.livedisplay@2.0-service-mediatek.rc"],
+    defaults: ["livedisplay_mediatek_defaults"],
+    vendor: true,
 }
